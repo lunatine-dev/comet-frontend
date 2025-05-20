@@ -26,7 +26,7 @@
 
     <!-- GitHub Login Button -->
     <button
-        class="bg-white text-gray-900 font-semibold py-2 px-3 rounded-md shadow hover:bg-gray-200 transition text-sm"
+        class="bg-white text-gray-900 font-semibold py-2 px-3 rounded-md shadow hover:bg-gray-200 transition text-sm cursor-pointer"
         onclick={loginWithGitHub}
     >
         <svg
