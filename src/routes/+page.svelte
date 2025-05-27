@@ -1,9 +1,28 @@
 <script>
+    import { onMount } from "svelte";
     import { PUBLIC_API_URL } from "$env/static/public";
+    import { pingBackend } from "$lib/utils/connectivity";
+    let { data } = $props();
     // Replace with actual GitHub login URL or logic
     const loginWithGitHub = () => {
-        window.location.href = `${PUBLIC_API_URL}/oauth/github`; // Adjust this to your actual GitHub OAuth route
+        let href = `${PUBLIC_API_URL}/oauth/github`;
+        if (data.user) {
+            href = "/app";
+        }
+        window.location.href = href;
     };
+
+    let status = $state("Loading...");
+
+    onMount(async () => {
+        const result = await pingBackend();
+        if (result.ok) {
+            status = "Online";
+            time = result.data.timestamp;
+        } else {
+            status = "Offline";
+        }
+    });
 </script>
 
 <div
@@ -40,4 +59,12 @@
         </svg>
         Login with GitHub
     </button>
+</div>
+
+<div
+    class="absolute top-0 z-1000 {status === 'Online'
+        ? 'text-green-500'
+        : 'text-red-400'}"
+>
+    {status}
 </div>
