@@ -15,6 +15,9 @@
     let is_node_app = $state(false);
     let env = $state("");
     let rows = $state(1);
+    let status = $state(false);
+    let restartResponse = $state("purple");
+    let restarting = $state(false);
     const maxRows = 25;
 
     let webhooksSetup = false;
@@ -31,6 +34,25 @@
         await post(`/repos/live/${repoId}/webhooks`, {}, data.accessToken);
         fetchData();
     };
+
+    const restartApp = async () => {
+        restarting = true;
+        try {
+            let res = await get(
+                `/pm2/${repo.owner?.login}/${repo.name}/restart`,
+                data.accessToken
+            );
+            if (res.status) {
+                restartResponse = "green";
+            }
+        } catch (e) {
+            restartResponse = "red";
+            console.log("ERROR", e);
+        } finally {
+            restarting = false;
+        }
+    };
+
     const saveEnv = async () => {
         await post(`/repos/live/${repoId}/env`, { env }, data.accessToken);
     };
@@ -53,6 +75,11 @@
             url = joinUrl(url, "is_node_app");
             return await get(url, data.accessToken);
         },
+        pm2: async (url) => {
+            url = joinUrl(url, "pm2_status");
+
+            return await get(url, data.accessToken);
+        },
     };
 
     const fetchData = async () => {
@@ -73,9 +100,10 @@
                 fetchRepo.github,
                 fetchRepo.webhooks,
                 fetchRepo.is_node_app,
+                fetchRepo.pm2,
             ];
 
-            [repo, webhooks, { is_node_app }] = await Promise.all(
+            [repo, webhooks, { is_node_app }, { status }] = await Promise.all(
                 funcs.map((fn) => fn(url))
             );
         } catch (err) {
@@ -171,13 +199,17 @@
                             <Toggle checked={is_node_app} disabled />
                         </div>
                         <div class="flex items-center justify-between">
-                            <span>✅ Live</span>
+                            <span>✅ Directory</span>
                             <Toggle
                                 checked={liveRepo?.directory_exists
                                     ? true
                                     : false}
                                 disabled
                             />
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span>✅ PM2 Status</span>
+                            <Toggle checked={status} disabled />
                         </div>
                     </div>
 
@@ -189,6 +221,14 @@
                             onclick={syncWebhooks}
                             color="purple"
                             class="w-full">Sync Webhooks</Button
+                        >
+                    </div>
+                    <div class="pt-0">
+                        <Button
+                            disabled={restarting}
+                            onclick={restartApp}
+                            color={restartResponse}
+                            class="w-full">Restart</Button
                         >
                     </div>
                 </div>

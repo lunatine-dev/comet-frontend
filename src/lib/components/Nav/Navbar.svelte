@@ -14,6 +14,7 @@
         FolderOpenSolid,
         ServerSolid,
         LockSolid,
+        ListOutline,
     } from "flowbite-svelte-icons";
 
     import { page } from "$app/stores";
@@ -29,13 +30,18 @@
         },
         {
             href: "/app/manager",
-            icon: ServerSolid,
+            icon: ListOutline,
             text: "Manager",
         },
         {
             href: "/app/tokens",
             icon: LockSolid,
             text: "Tokens",
+        },
+        {
+            href: "/app/server",
+            icon: ServerSolid,
+            text: "Server",
         },
     ];
 </script>
