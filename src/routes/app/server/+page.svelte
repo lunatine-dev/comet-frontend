@@ -168,16 +168,50 @@
                     <div
                         class="flex justify-between items-center px-3 py-2 bg-gray-100 dark:bg-gray-700 rounded-md"
                     >
+                        <!-- Left: App name + status -->
                         <div class="flex flex-col">
-                            <span class="font-medium">{app.name}</span>
-                            <span
-                                class="text-xs text-gray-500 dark:text-gray-400"
-                                >{app.status}</span
+                            <span class="font-medium text-black dark:text-white"
+                                >{app.name}</span
                             >
+
+                            <!-- Colorized status -->
+                            <span
+                                class="text-xs font-medium mt-0.5
+        {app.status === 'online'
+                                    ? 'text-green-600 dark:text-green-400'
+                                    : app.status === 'stopped'
+                                      ? 'text-red-600 dark:text-red-400'
+                                      : 'text-yellow-600 dark:text-yellow-400'}"
+                            >
+                                {app.status}
+                            </span>
+
+                            <!-- GitHub link if available -->
+                            {#if app.githubUrl}
+                                <a
+                                    href={app.githubUrl}
+                                    target="_blank"
+                                    class="text-xs text-blue-600 dark:text-blue-400 hover:underline mt-0.5"
+                                >
+                                    View on GitHub
+                                </a>
+                            {/if}
                         </div>
-                        <div class="text-sm text-right">
+
+                        <!-- Right: Usage + Copy -->
+                        <div
+                            class="text-sm text-right text-gray-700 dark:text-gray-300 space-y-1"
+                        >
                             <div>CPU: {app.cpu}%</div>
                             <div>RAM: {app.mem} MB</div>
+
+                            <button
+                                class="text-xs text-gray-500 hover:text-black dark:hover:text-white transition"
+                                on:click={() =>
+                                    navigator.clipboard.writeText(app.id)}
+                            >
+                                Copy ID
+                            </button>
                         </div>
                     </div>
                 {/each}
