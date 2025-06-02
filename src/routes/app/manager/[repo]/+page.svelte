@@ -216,8 +216,8 @@
                     <div class="pt-4">
                         <Button
                             disabled={!is_node_app && liveRepo?.webhook
-                                ? false
-                                : true}
+                                ? true
+                                : false}
                             onclick={syncWebhooks}
                             color="purple"
                             class="w-full">Sync Webhooks</Button
