@@ -215,7 +215,7 @@
 
                     <div class="pt-4">
                         <Button
-                            disabled={!is_node_app && liveRepo?.webhook
+                            disabled={!is_node_app || liveRepo?.webhook
                                 ? true
                                 : false}
                             onclick={syncWebhooks}
