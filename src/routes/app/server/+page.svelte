@@ -51,6 +51,11 @@
         await fetchData();
         loading = false;
     });
+
+    function getHueColor(percent) {
+        const hue = 120 - percent * 1.2; // 120 (green) to 0 (red)
+        return `hsl(${hue}, 100%, 50%)`;
+    }
 </script>
 
 <div class="p-6 space-y-8">
@@ -125,7 +130,11 @@
                 <div
                     class="bg-white dark:bg-gray-800 rounded-xl shadow p-4 text-center"
                 >
-                    <svg width="100" height="100" class="mx-auto mb-2">
+                    <svg
+                        width="100"
+                        height="100"
+                        class="mx-auto mb-2 transition-all duration-500 ease-out"
+                    >
                         <circle
                             cx="50"
                             cy="50"
@@ -138,13 +147,13 @@
                             cx="50"
                             cy="50"
                             r={circleRadius}
-                            class={`stroke-current ${item.color}`}
                             stroke-width="10"
                             fill="transparent"
                             stroke-dasharray={circumference}
                             stroke-dashoffset={getOffset(item.data.percent)}
                             stroke-linecap="round"
                             transform="rotate(-90 50 50)"
+                            stroke={getHueColor(item.data.percent)}
                         />
                     </svg>
                     <div class="text-lg font-semibold">{item.label}</div>
