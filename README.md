@@ -25,3 +25,7 @@ From here you can:
 -   **Frontend**: [SvelteKit](https://kit.svelte.dev)
 -   **UI**: Tailwind CSS
 -   **Backend API**: Connects to `comet`
+
+## 📦 Related project
+
+-   **[comet](https://github.com/lunatine-dev/comet)** – Fastify webhook server to pull & restart projects on main branch updates.
