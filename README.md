@@ -1,38 +1,27 @@
-# sv
+# 🌙 comet-frontend
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+> 🖥️ SvelteKit dashboard to manage your auto‑deploy repos and edit environment variables
 
-## Creating a project
+![SvelteKit](https://img.shields.io/badge/SvelteKit-%23FF3E00.svg?logo=svelte&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-06B6D4?logo=tailwindcss&logoColor=white)
+![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)
+![Issues](https://img.shields.io/github/issues/lunatine-dev/comet-frontend)
+![Stars](https://img.shields.io/github/stars/lunatine-dev/comet-frontend?style=social)
 
-If you're seeing this, you've probably already done this step. Congrats!
+## ✨ Purpose
 
-```bash
-# create a new project in the current directory
-npx sv create
+`comet-frontend` is the companion web UI for `comet`.
 
-# create a new project in my-app
-npx sv create my-app
-```
+From here you can:
 
-## Developing
+-   Add new repos to watch & auto-deploy
+-   Edit and save environment variables
+-   View deployment logs and status
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+---
 
-```bash
-npm run dev
+## ⚙️ Technical stack
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+-   **Frontend**: [SvelteKit](https://kit.svelte.dev)
+-   **UI**: Tailwind CSS
+-   **Backend API**: Connects to `comet`
